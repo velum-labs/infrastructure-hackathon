@@ -86,9 +86,19 @@ export default function App({ locale }: { locale: Locale }) {
         {t.skip}
       </a>
 
-      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-4 pt-5">
+      <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex items-center gap-2 px-4 pt-5">
         <a className={`pointer-events-auto ${SPONSOR_BTN}`} href={MAIL}>
           {t.sponsorCta}
+        </a>
+        <a
+          className={`pointer-events-auto ${SPONSOR_BTN}`}
+          href={`${localePath(next)}${window.location.search}${window.location.hash}`}
+          hrefLang={htmlLang(next)}
+          onClick={() => {
+            document.cookie = `${LOCALE_COOKIE}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`
+          }}
+        >
+          {t.seeOther}
         </a>
       </header>
 
