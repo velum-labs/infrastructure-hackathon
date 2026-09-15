@@ -9,6 +9,22 @@
     {
       "source": "/flag/",
       "destination": "/"
+    },
+    {
+      "source": "/en",
+      "destination": "/"
+    },
+    {
+      "source": "/en/",
+      "destination": "/"
+    },
+    {
+      "source": "/es",
+      "destination": "/"
+    },
+    {
+      "source": "/es/",
+      "destination": "/"
     }
   ]
 }
