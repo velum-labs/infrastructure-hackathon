@@ -5,6 +5,10 @@
     {
       "source": "/flag",
       "destination": "/"
+    },
+    {
+      "source": "/flag/",
+      "destination": "/"
     }
   ]
 }
