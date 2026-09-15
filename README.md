@@ -8,7 +8,9 @@ pnpm dev
 ```
 
 ```bash
-pnpm deploy
+pnpm build
 ```
 
-Live: [infra.indies.cl](https://infra.indies.cl)
+Deployments are managed by Vercel from the `main` branch.
+
+Live: [hackinfrafuturo.cl](https://hackinfrafuturo.cl)
