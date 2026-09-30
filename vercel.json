@@ -25,6 +25,30 @@
     {
       "source": "/es/",
       "destination": "/"
+    },
+    {
+      "source": "/home",
+      "destination": "/"
+    },
+    {
+      "source": "/home/",
+      "destination": "/"
+    },
+    {
+      "source": "/en/home",
+      "destination": "/"
+    },
+    {
+      "source": "/en/home/",
+      "destination": "/"
+    },
+    {
+      "source": "/es/home",
+      "destination": "/"
+    },
+    {
+      "source": "/es/home/",
+      "destination": "/"
     }
   ]
 }
