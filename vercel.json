@@ -1,5 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "if [ \"$VERCEL_ENV\" = production ]; then VITE_CONVEX_URL=https://polite-spider-810.convex.cloud pnpm build; else pnpm build; fi",
   "cleanUrls": true,
   "rewrites": [
     {
