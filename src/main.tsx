@@ -2,46 +2,55 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { AgentationDev } from './components/AgentationDev.tsx'
 import App from './App.tsx'
-import Apply from './Apply.tsx'
 import Home from './Home.tsx'
 import Flag from './Flag.tsx'
-import { APPLY, HOME, SPONSOR, legacyPath, persistLocale } from './i18n/locale.ts'
+import {
+  cookieLocale,
+  fromAcceptLanguage,
+  homePathLocale,
+  pathLocale,
+} from './i18n/locale.ts'
 import './index.css'
 
 const path = window.location.pathname.replace(/\/+$/, '') || '/'
-const tail = `${window.location.search}${window.location.hash}`
 
-const legacy = legacyPath(path)
-if (legacy) {
-  persistLocale(legacy.locale)
-  window.location.replace(`${legacy.dest}${tail}`)
-} else if (path === '/flag') {
+function negotiated() {
+  return (
+    cookieLocale(document.cookie) ??
+    fromAcceptLanguage(navigator.languages?.join(',') || navigator.language)
+  )
+}
+
+if (path === '/flag') {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
       <Flag />
     </StrictMode>,
   )
-} else if (path === HOME || path === '/home') {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <Home />
-      <AgentationDev />
-    </StrictMode>,
+} else if (path === '/home') {
+  window.location.replace(
+    `/${negotiated()}/home${window.location.search}${window.location.hash}`,
   )
-} else if (path === APPLY) {
+} else if (homePathLocale(path)) {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <Apply />
-      <AgentationDev />
-    </StrictMode>,
-  )
-} else if (path === SPONSOR) {
-  createRoot(document.getElementById('root')!).render(
-    <StrictMode>
-      <App />
+      <Home locale={homePathLocale(path)!} />
       <AgentationDev />
     </StrictMode>,
   )
 } else {
-  window.location.replace(`${HOME}${tail}`)
+  const locale = pathLocale(path)
+  if (!locale) {
+    const dest = negotiated()
+    window.location.replace(
+      `/${dest}${window.location.search}${window.location.hash}`,
+    )
+  } else {
+    createRoot(document.getElementById('root')!).render(
+      <StrictMode>
+        <App locale={locale} />
+        <AgentationDev />
+      </StrictMode>,
+    )
+  }
 }

@@ -7,8 +7,13 @@ import { PicaroFigure } from './v2/PicaroFigure'
 import { type Metal } from './v2/metals'
 import { messages } from './i18n/messages'
 import { META } from './i18n/meta'
-import { htmlLang, otherLocale } from './i18n/locale'
-import { useLocale } from './i18n/use-locale'
+import {
+  LOCALE_COOKIE,
+  htmlLang,
+  localePath,
+  otherLocale,
+  type Locale,
+} from './i18n/locale'
 
 const MAIL = 'mailto:benjamin@velum-labs.com'
 const LINKEDIN = 'https://www.linkedin.com/in/benjamzc/'
@@ -60,8 +65,7 @@ function Section({
   )
 }
 
-export default function App() {
-  const [locale, setLocale] = useLocale()
+export default function App({ locale }: { locale: Locale }) {
   const t = messages[locale]
   const next = otherLocale(locale)
 
@@ -86,13 +90,16 @@ export default function App() {
         <a className={`pointer-events-auto ${SPONSOR_BTN}`} href={MAIL}>
           {t.sponsorCta}
         </a>
-        <button
-          type="button"
+        <a
           className={`pointer-events-auto ${SPONSOR_BTN}`}
-          onClick={() => setLocale(next)}
+          href={`${localePath(next)}${window.location.search}${window.location.hash}`}
+          hrefLang={htmlLang(next)}
+          onClick={() => {
+            document.cookie = `${LOCALE_COOKIE}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`
+          }}
         >
           {t.seeOther}
-        </button>
+        </a>
       </header>
 
       <div id="top">
@@ -297,13 +304,16 @@ export default function App() {
         </Section>
 
         <p className="mt-20 border-t border-[#2a2a2a] pt-12 font-mono text-base leading-7 md:mt-28 md:pt-16">
-          <button
-            type="button"
-            className={`border-0 bg-transparent p-0 ${INVERT}`}
-            onClick={() => setLocale(next)}
+          <a
+            className={INVERT}
+            href={`${localePath(next)}${window.location.search}${window.location.hash}`}
+            hrefLang={htmlLang(next)}
+            onClick={() => {
+              document.cookie = `${LOCALE_COOKIE}=${next}; Path=/; Max-Age=31536000; SameSite=Lax`
+            }}
           >
             {t.seeOther}
-          </button>
+          </a>
         </p>
       </main>
     </div>
