@@ -4,7 +4,7 @@ The form sends a team through `submitTeam` in `src/apply/submit.ts`. That calls 
 
 The mutation stores one `applications` row for the team and one `members` row per person. Same email, or same GitHub when they gave one, is rejected. There is no public query for these rows. Read them in the Convex dashboard, on the Data page.
 
-Until `VITE_CONVEX_URL` is present at build time, submit waits and then succeeds without saving. The live site keeps accepting the form. Saving starts after the steps below, once the site is built again with the URL set.
+`VITE_CONVEX_URL` must be present at build time. Without it, the form shows its retry state and preserves the draft instead of claiming that the team was saved.
 
 ## Local
 
@@ -56,6 +56,13 @@ To upload functions without the browser login, add a dev deploy key to `.env.loc
 
 ## Production
 
-Vercel deploys this repository's `main` branch. The development deployment above does not configure production. To save live registrations, deploy `convex/` to the project's production Convex deployment with `pnpm exec convex deploy`, set `VITE_CONVEX_URL` to that production deployment URL in the Vercel project, and rebuild the site. Verify a representative submission in the production Convex Data page.
+The project's production Convex deployment is `polite-spider-810` at `https://polite-spider-810.convex.cloud`. The development deployment above does not configure production.
+
+To save live registrations:
+
+1. Deploy the canonical `main` branch again. The production `buildCommand` in `vercel.json` sets the public production URL as `VITE_CONVEX_URL` while building Vite. This needs no Vercel secret or dashboard setting.
+2. Submit a representative team on the published site and confirm one `applications` row and the linked `members` rows in the production Convex Data page.
+
+The current `applications.submit` function was deployed manually on 5 October 2026. Future changes under `convex/` must be deployed separately with `pnpm exec convex deploy` before the matching frontend release. Preview builds run `pnpm build` without a Convex URL; configure a separate preview backend and `VITE_CONVEX_URL` for previews if submission testing is needed there.
 
 The form does not email anyone yet.
