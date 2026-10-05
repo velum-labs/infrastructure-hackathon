@@ -49,6 +49,38 @@
     {
       "source": "/es/home/",
       "destination": "/"
+    },
+    {
+      "source": "/apply",
+      "destination": "/"
+    },
+    {
+      "source": "/apply/",
+      "destination": "/"
+    },
+    {
+      "source": "/sponsor",
+      "destination": "/"
+    },
+    {
+      "source": "/sponsor/",
+      "destination": "/"
+    },
+    {
+      "source": "/en/apply",
+      "destination": "/"
+    },
+    {
+      "source": "/en/apply/",
+      "destination": "/"
+    },
+    {
+      "source": "/es/apply",
+      "destination": "/"
+    },
+    {
+      "source": "/es/apply/",
+      "destination": "/"
     }
   ]
 }
