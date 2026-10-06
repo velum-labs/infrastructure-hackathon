@@ -65,15 +65,15 @@ export const applyMessages: Record<Locale, ApplyMessages> = {
     },
     review: {
       title: 'Check your team',
-      hint: "When you register, we email everyone on the team. We'll be in touch soon with details and whether you're in.",
+      hint: "When you register, we'll send a confirmation to everyone on the team. We'll be in touch soon with details and whether you're in.",
       submit: 'Register team',
       sending: 'Sending…',
       failed: "We couldn't send your registration. Try again.",
     },
     done: {
       title: 'Team registered',
-      body: "We emailed everyone on the team. We'll be in touch soon with details and whether you got in.",
-      sentTo: 'Sent to',
+      body: "We received your team's application. Confirmation emails are on their way. We'll be in touch soon with details and whether you got in.",
+      sentTo: 'Registered emails',
       home: 'Back to home',
     },
     fields: {
@@ -172,8 +172,8 @@ export const applyMessages: Record<Locale, ApplyMessages> = {
     },
     done: {
       title: 'Equipo inscrito',
-      body: 'Enviamos un correo a cada persona del equipo. Les avisamos pronto con los detalles y si quedaron.',
-      sentTo: 'Enviado a',
+      body: 'Recibimos la postulación del equipo. Los correos de confirmación van en camino. Les avisamos pronto con los detalles y si quedaron.',
+      sentTo: 'Correos inscritos',
       home: 'Volver al inicio',
     },
     fields: {

@@ -65,4 +65,6 @@ To save live registrations:
 
 The current `applications.submit` function was deployed manually on 5 October 2026. Future changes under `convex/` must be deployed separately with `pnpm exec convex deploy` before the matching frontend release. Preview builds run `pnpm build` without a Convex URL; configure a separate preview backend and `VITE_CONVEX_URL` for previews if submission testing is needed there.
 
-The form does not email anyone yet.
+After saving a team, the mutation schedules an internal action for each member. The action sends a confirmation through the official Resend SDK from `Infra Futuro <hola@indies.la>`. `indies.la` must stay verified for sending in Resend. Each message uses the member ID as its Resend idempotency key.
+
+Set `RESEND_API_KEY` separately on the selected development deployment and on production with `pnpm exec convex env set RESEND_API_KEY` before testing or accepting live registrations. The key in `.env.local` is only available to local CLI commands; it is not automatically available to Convex cloud functions. Keep it out of Git, Vercel, and Vite environment variables. Check sends and delivery events with the Resend CLI (`resend emails list` and `resend emails get <id>`). The form confirms the saved registration before the scheduled email action finishes, so use Resend events to verify delivery.

@@ -11,6 +11,7 @@ import {
 import { checkTeam } from '../src/apply/schema'
 import { memberValidator } from './schema'
 import { mutation } from './_generated/server'
+import { internal } from './_generated/api'
 
 function oneOf<T extends string>(options: readonly T[], value: string): value is T {
   return options.some((option) => option === value)
@@ -81,7 +82,12 @@ export const submit = mutation({
     })
 
     for (const person of ready) {
-      await ctx.db.insert('members', { ...person, applicationId })
+      const memberId = await ctx.db.insert('members', { ...person, applicationId })
+      await ctx.scheduler.runAfter(0, internal.emails.sendConfirmation, {
+        memberId,
+        name: person.name,
+        email: person.email,
+      })
     }
 
     return null
