@@ -16,7 +16,7 @@ const HAND = {
 } as const
 
 const ORGS = [
-  { id: 'velum', name: 'Velum Labs (YC W26)', logo: '/brand/orgs/velum.webp', size: 512 },
+  { id: 'velum', name: 'Velum Labs (YC P26)', logo: '/brand/orgs/velum.webp', size: 512 },
   { id: 'indies', name: 'indies.cl', logo: '/brand/orgs/indies.webp', size: 140 },
   { id: 'ae', name: 'Alianza Emprende', logo: '/brand/orgs/ae.webp', size: 512 },
 ] as const satisfies readonly { id: OrgId; name: string; logo: string; size: number }[]

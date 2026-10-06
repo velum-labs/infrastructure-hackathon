@@ -18,7 +18,7 @@ A one-page sponsor deck for Infrastructure Hackathon, a 24-hour in-person hackat
 
 ## Positioning
 
-The event is built from Latin America, not imported. It is about agents that have to work against real government and business systems, not demo-ware. The organizers already have reach: Velum Labs (Y Combinator 2025), Indies (~3000 members; ran the largest social-impact hackathon in LatAm), and Alianza Emprende (12 universities).
+The event is built from Latin America, not imported. It is about agents that have to work against real government and business systems, not demo-ware. The organizers already have reach: Velum Labs (YC P26), Indies (~3000 members; ran the largest social-impact hackathon in LatAm), and Alianza Emprende (12 universities).
 
 ## Operating Context
 

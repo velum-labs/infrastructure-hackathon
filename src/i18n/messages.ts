@@ -188,7 +188,7 @@ export const messages: Record<Locale, Messages> = {
     orgsTitle: "Who's behind this",
     orgs: [
       {
-        title: 'Velum Labs (YC W26)',
+        title: 'Velum Labs (YC P26)',
         copy: 'AI startup, Chilean founders. First ones into YC in almost three years.',
       },
       {
@@ -305,7 +305,7 @@ export const messages: Record<Locale, Messages> = {
     orgsTitle: 'Quién lo organiza',
     orgs: [
       {
-        title: 'Velum Labs (YC W26)',
+        title: 'Velum Labs (YC P26)',
         copy: 'Startup de IA, founders chilenos. Los primeros en entrar a YC en casi tres años.',
       },
       {
