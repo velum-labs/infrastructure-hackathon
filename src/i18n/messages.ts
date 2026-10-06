@@ -47,6 +47,11 @@ export type HomeMessages = {
   facts: string
   handLabel: string
   orgs: Record<OrgId, string>
+  behindTitle: string
+  faqTitle: string
+  faq: { q: string; a: string }[]
+  faqMore: string
+  faqSponsor: string
   seeOther: string
 }
 
@@ -73,6 +78,36 @@ export const homeMessages: Record<Locale, HomeMessages> = {
         'Startup community running in-person events. Last hackathon was the biggest social-impact one in Latin America, five countries.',
       ae: 'Every university entrepreneurship club in Chile. In 2026: ~3000 signed up, 1800+ showed up.',
     },
+    behindTitle: "Who's behind it",
+    faqTitle: 'FAQ',
+    faq: [
+      {
+        q: 'When and where is it?',
+        a: '7–8 November 2026, in person, in Santiago, Chile. It runs for 24 hours. Registered teams get the details by email.',
+      },
+      {
+        q: 'Who can take part?',
+        a: 'Teams of 2 to 4 people. No solo teams, no teams of 5. We expect around 500 people in total.',
+      },
+      {
+        q: 'How do I get in?',
+        a: "You apply. Register your team on this site and everyone on it gets a confirmation email. We'll write soon to say whether you're in.",
+      },
+      {
+        q: 'Do I need to code?',
+        a: "The application asks if you code day to day. If you do, we need your GitHub. If you don't, your LinkedIn.",
+      },
+      {
+        q: 'What will we build?',
+        a: 'Agents that work against real systems. There are three tracks: agent-ready government, agent-ready business, and agent infrastructure.',
+      },
+      {
+        q: 'Can my company get involved?',
+        a: 'Yes. We are looking for money, API credits, or a venue.',
+      },
+    ],
+    faqMore: 'Anything else? Write to',
+    faqSponsor: 'Sponsor details',
     seeOther: 'En español',
   },
   es: {
@@ -97,6 +132,36 @@ export const homeMessages: Record<Locale, HomeMessages> = {
         'Comunidad de startups con eventos presenciales. La última hackathon fue la de impacto social más grande de Latinoamérica, en cinco países.',
       ae: 'Todos los clubes de emprendimiento universitarios de Chile. En 2026: ~3000 inscritos, 1800+ asistentes.',
     },
+    behindTitle: 'Quién está detrás',
+    faqTitle: 'Preguntas frecuentes',
+    faq: [
+      {
+        q: '¿Cuándo y dónde es?',
+        a: 'El 7 y 8 de noviembre de 2026, presencial, en Santiago de Chile. Dura 24 horas. Los equipos inscritos reciben los detalles por correo.',
+      },
+      {
+        q: '¿Quién puede participar?',
+        a: 'Equipos de 2 a 4 personas. No hay equipos solos ni de 5. Esperamos unas 500 personas en total.',
+      },
+      {
+        q: '¿Cómo entro?',
+        a: 'Se entra por postulación. Inscribe a tu equipo en este sitio y todos reciben un correo de confirmación. Les avisamos pronto si quedaron.',
+      },
+      {
+        q: '¿Tengo que programar?',
+        a: 'La postulación pregunta si programas en tu día a día. Si programas, necesitamos tu GitHub. Si no, tu LinkedIn.',
+      },
+      {
+        q: '¿Qué vamos a construir?',
+        a: 'Agentes que funcionen con sistemas reales. Hay tres tracks: agent-ready government, agent-ready business y agent infrastructure.',
+      },
+      {
+        q: '¿Mi empresa puede participar?',
+        a: 'Sí. Buscamos dinero, créditos de API o un espacio.',
+      },
+    ],
+    faqMore: '¿Algo más? Escribe a',
+    faqSponsor: 'Detalles para sponsors',
     seeOther: 'In English',
   },
 }

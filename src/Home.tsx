@@ -1,4 +1,5 @@
 import { useLayoutEffect } from 'react'
+import { Accordion } from '@base-ui/react/accordion'
 import { Marquee } from './components/Marquee'
 import { OrgLogo } from './components/OrgLogo'
 import { uiSound } from './ui-sound'
@@ -21,6 +22,20 @@ const ORGS = [
 ] as const satisfies readonly { id: OrgId; name: string; logo: string; size: number }[]
 
 const RULE = 'border-[#d6d4d0]'
+
+const MAIL = 'benjamin@velum-labs.com'
+
+const TEXT_LINK =
+  'text-[#181818] underline decoration-[#9a9890] underline-offset-4 transition-[background-color,color] duration-75 ease-linear hover:bg-[#181818] hover:text-[#f4f2ee] focus-visible:bg-[#181818] focus-visible:text-[#f4f2ee] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand'
+
+/** Shared by the three sections under the hero so their columns line up. */
+const COLUMNS =
+  'md:grid-cols-[minmax(16rem,24rem)_minmax(0,34.5rem)] md:justify-center md:gap-x-12'
+
+const SECTION_GRID = `grid gap-8 ${COLUMNS}`
+
+const SECTION_TITLE =
+  'font-pixel text-[32px] leading-[1.1] text-balance text-[#181818] md:text-[48px]'
 
 const DOOR_THEME = {
   light: {
@@ -187,7 +202,7 @@ export default function Home() {
         id="contenido"
         className="flex min-h-svh items-center px-4 py-12 md:px-6 md:py-16"
       >
-        <div className="grid w-full items-start gap-8 md:grid-cols-[minmax(16rem,24rem)_minmax(0,1fr)] md:items-stretch md:gap-x-12">
+        <div className={`grid w-full items-start gap-8 md:items-stretch ${COLUMNS}`}>
           <figure
             className={`aspect-square w-full border bg-brand [--ascii-bg:var(--color-brand)] ${RULE}`}
           >
@@ -207,6 +222,99 @@ export default function Home() {
               <p>{t.stuckBody}</p>
             </div>
             <p className="tabular-nums">{t.facts}</p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="behind"
+        aria-labelledby="behind-title"
+        className={`border-t px-4 py-12 md:px-6 md:py-16 ${RULE}`}
+      >
+        <div className={SECTION_GRID}>
+          <h2 id="behind-title" className={SECTION_TITLE}>
+            {t.behindTitle}
+          </h2>
+          <ul>
+            {ORGS.map(({ id, name, logo, size }) => (
+              <li
+                key={id}
+                className={`grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-4 gap-y-1 border-t py-6 first:border-t-0 first:pt-0 md:gap-x-6 ${RULE}`}
+              >
+                <img
+                  src={logo}
+                  alt=""
+                  width={size}
+                  height={size}
+                  decoding="async"
+                  loading="lazy"
+                  className="row-span-2 size-12 object-contain md:size-14"
+                />
+                <h3 className="font-mono text-lg leading-8 text-[#181818] md:text-xl md:leading-9">
+                  {name}
+                </h3>
+                <p className="font-mono text-base leading-7 text-[#5a5956] md:text-lg md:leading-8">
+                  {t.orgs[id]}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section
+        id="faq"
+        aria-labelledby="faq-title"
+        className={`border-t px-4 py-12 md:px-6 md:py-16 ${RULE}`}
+      >
+        <div className={SECTION_GRID}>
+          <h2 id="faq-title" className={SECTION_TITLE}>
+            {t.faqTitle}
+          </h2>
+          <div>
+            <Accordion.Root>
+              {t.faq.map(({ q, a }) => (
+                <Accordion.Item key={q} className={`border-t last:border-b ${RULE}`}>
+                  <Accordion.Header className="m-0 font-normal">
+                    <Accordion.Trigger className="group flex w-full cursor-pointer items-start justify-between gap-6 border-0 bg-transparent px-2 py-4 text-left font-mono text-lg leading-8 text-[#181818] outline-none transition-colors duration-75 ease-linear hover:bg-[#e8e5df] focus-visible:bg-[#e8e5df] focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-brand md:text-xl md:leading-8">
+                      {q}
+                      <svg
+                        aria-hidden
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="square"
+                        className="mt-0.5 size-6 shrink-0"
+                      >
+                        <path d="M5 12h14" />
+                        <path
+                          d="M12 5v14"
+                          className="transition-opacity duration-75 ease-linear group-data-panel-open:opacity-0"
+                        />
+                      </svg>
+                    </Accordion.Trigger>
+                  </Accordion.Header>
+                  <Accordion.Panel className="h-[var(--accordion-panel-height)] overflow-hidden transition-[height] duration-150 ease-linear data-ending-style:h-0 data-starting-style:h-0 motion-reduce:transition-none">
+                    <p className="px-2 pb-5 font-mono text-base leading-7 text-[#5a5956] md:text-lg md:leading-8">
+                      {a}
+                    </p>
+                  </Accordion.Panel>
+                </Accordion.Item>
+              ))}
+            </Accordion.Root>
+
+            <p className="mt-8 font-mono text-base leading-7 text-[#5a5956] md:text-lg md:leading-8">
+              {t.faqMore}{' '}
+              <a className={`whitespace-nowrap ${TEXT_LINK}`} href={`mailto:${MAIL}`}>
+                {MAIL}
+              </a>
+            </p>
+            <p className="mt-2 font-mono text-base leading-7 md:text-lg md:leading-8">
+              <a className={TEXT_LINK} href={SPONSOR} {...uiSound}>
+                {t.faqSponsor}
+              </a>
+            </p>
           </div>
         </div>
       </section>
