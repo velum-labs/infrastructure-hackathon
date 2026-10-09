@@ -64,7 +64,7 @@ export const homeMessages: Record<Locale, HomeMessages> = {
     skip: 'Skip to content',
     heroDate: 'November 7–8, Santiago, Chile',
     heroVenue: 'Nido Lucía',
-    heroAddress: 'San Isidro 85, Santiago',
+    heroAddress: 'San Isidro 85, Santiago Centro',
     heroTitle: 'The biggest hackathon in Chile, ever',
     heroSub:
       'An infrastructure hackathon focused on building the future of business. Devtools, agents.',
@@ -120,7 +120,7 @@ export const homeMessages: Record<Locale, HomeMessages> = {
     skip: 'Saltar al contenido',
     heroDate: '7 y 8 de noviembre, Santiago, Chile',
     heroVenue: 'Nido Lucía',
-    heroAddress: 'San Isidro 85, Santiago',
+    heroAddress: 'San Isidro 85, Santiago Centro',
     heroTitle: 'La hackathon más grande de la historia de Chile',
     heroSub:
       'Una hackathon de infraestructura para construir el futuro de los negocios. Devtools, agentes.',
@@ -180,7 +180,7 @@ export const messages: Record<Locale, Messages> = {
     sponsorCta: 'Be a sponsor',
     place: '7–8 Nov 2026. Santiago, Chile',
     venueName: 'Nido Lucía',
-    venueAddress: 'San Isidro 85, Santiago',
+    venueAddress: 'San Isidro 85, Santiago Centro',
     subtitle: '24 hours, ~500 people, infrastructure agents can actually use.',
     whyTitle: 'Why',
     whyHighlight: "Agents get stuck when they can't get into a real system.",
@@ -298,7 +298,7 @@ export const messages: Record<Locale, Messages> = {
     sponsorCta: 'Súmate como sponsor',
     place: '7–8 nov 2026. Santiago, Chile',
     venueName: 'Nido Lucía',
-    venueAddress: 'San Isidro 85, Santiago',
+    venueAddress: 'San Isidro 85, Santiago Centro',
     subtitle:
       '24 horas, ~500 personas, infraestructura que un agente pueda usar de verdad.',
     whyTitle: 'Por qué',

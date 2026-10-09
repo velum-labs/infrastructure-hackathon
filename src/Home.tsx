@@ -146,8 +146,7 @@ export default function Home() {
             rel="noreferrer"
             className="mb-3 block w-fit font-mono text-base leading-6 text-[#5a5956] underline decoration-[#9a9890] underline-offset-4 transition-colors hover:text-[#181818] focus-visible:text-[#181818] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mb-4"
           >
-            <span className="block">{t.heroVenue} ↗</span>
-            <span className="block">{t.heroAddress}</span>
+            {t.heroVenue}, {t.heroAddress}
           </a>
           <h1
             id="hero-title"
