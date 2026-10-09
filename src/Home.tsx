@@ -8,6 +8,7 @@ import { homeMessages, type OrgId } from './i18n/messages'
 import { HOME_META } from './i18n/meta'
 import { APPLY, SPONSOR, htmlLang, otherLocale } from './i18n/locale'
 import { useLocale } from './i18n/use-locale'
+import { VENUE_MAP } from './venue'
 
 /** Mixkit 40938, silhouette of hands. Free to use. Center-cropped square. */
 const HAND = {
@@ -136,9 +137,18 @@ export default function Home() {
         className={`grid h-svh grid-cols-1 grid-rows-[auto_auto_minmax(6.5rem,1fr)_minmax(6.5rem,1fr)] border-b md:grid-cols-[minmax(0,1.22fr)_minmax(16.5rem,0.78fr)] md:grid-rows-2 ${RULE}`}
       >
         <div className="min-w-0 px-4 pt-6 md:col-start-1 md:row-start-1 md:px-6 md:pt-10 md:pr-8">
-          <p className="mb-2 font-mono text-base leading-7 text-[#5a5956] md:mb-3 md:text-lg md:leading-8">
+          <p className="font-mono text-base leading-7 text-[#5a5956] md:text-lg md:leading-8">
             {t.heroDate}
           </p>
+          <a
+            href={VENUE_MAP}
+            target="_blank"
+            rel="noreferrer"
+            className="mb-3 block w-fit font-mono text-base leading-6 text-[#5a5956] underline decoration-[#9a9890] underline-offset-4 transition-colors hover:text-[#181818] focus-visible:text-[#181818] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand md:mb-4"
+          >
+            <span className="block">{t.heroVenue} ↗</span>
+            <span className="block">{t.heroAddress}</span>
+          </a>
           <h1
             id="hero-title"
             className="w-full font-pixel text-4xl leading-[1.1] text-balance text-[#181818] sm:text-6xl md:text-7xl"

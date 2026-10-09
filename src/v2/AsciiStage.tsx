@@ -10,10 +10,12 @@ export const STAGE = {
 export function AsciiStage({
   title,
   place,
+  venue,
   subtitle,
 }: {
   title: ReactNode
   place: ReactNode
+  venue: ReactNode
   subtitle: ReactNode
 }) {
   return (
@@ -30,6 +32,7 @@ export function AsciiStage({
         <p className="mt-4 font-mono text-base leading-[18px] tabular-nums text-[#d6d4d0]">
           {place}
         </p>
+        <div className="mt-3">{venue}</div>
         <p className="mt-3 whitespace-nowrap font-mono text-base leading-[18px] text-[#9a9890]">
           {subtitle}
         </p>

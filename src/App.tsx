@@ -9,6 +9,7 @@ import { messages } from './i18n/messages'
 import { META } from './i18n/meta'
 import { htmlLang, otherLocale } from './i18n/locale'
 import { useLocale } from './i18n/use-locale'
+import { VENUE_MAP } from './venue'
 
 const MAIL = 'mailto:benjamin@velum-labs.com'
 const LINKEDIN = 'https://www.linkedin.com/in/benjamzc/'
@@ -105,6 +106,17 @@ export default function App() {
           }
           subtitle={t.subtitle}
           place={t.place}
+          venue={
+            <a
+              href={VENUE_MAP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pointer-events-auto inline-block max-w-[calc(100vw-2rem)] font-mono text-base leading-6 text-[#d6d4d0] underline decoration-[#9a9890] underline-offset-4 transition-colors hover:text-white focus-visible:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#6d4aff]"
+            >
+              <span className="block">{t.venueName} ↗</span>
+              <span className="block">{t.venueAddress}</span>
+            </a>
+          }
         />
       </div>
 
