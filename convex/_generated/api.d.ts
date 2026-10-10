@@ -9,6 +9,7 @@
  */
 
 import type * as applications from "../applications.js";
+import type * as emails from "../emails.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +19,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   applications: typeof applications;
+  emails: typeof emails;
 }>;
 
 /**
