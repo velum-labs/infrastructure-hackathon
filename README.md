@@ -24,7 +24,9 @@ Live: [hackinfrafuturo.cl](https://hackinfrafuturo.cl)
 Add a plain-text `ref` query parameter to a shared link, for example
 `https://hackinfrafuturo.cl/?ref=UC` or
 `https://hackinfrafuturo.cl/apply?ref=Alianza%20Emprende`.
-The home page carries it to `/apply`; the form keeps it through its steps and
-draft refreshes. On submission, the value is saved as `applications.ref` for
-the whole team. Applications without a `ref` still work, and an existing draft's
+The home page carries it to `/apply` and pre-fills the optional Referral code
+field on the first participant step (Código de referido in Spanish). Applicants
+can edit or clear the value; the form keeps it in the URL and draft through
+refreshes. On submission, the final value is saved as `applications.ref` for the
+whole team. Applications without a `ref` still work, and an existing draft's
 ref is replaced when someone opens a new link with a different `ref`.

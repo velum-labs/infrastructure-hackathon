@@ -73,6 +73,7 @@ export function TextField({
   inputMode,
   autoComplete = 'off',
   technical = false,
+  maxLength,
 }: Base & {
   value: string
   onValueChange: (value: string) => void
@@ -87,6 +88,7 @@ export function TextField({
   autoComplete?: string
   /** Handles, emails and URLs: no autocapitalize, no spellcheck. */
   technical?: boolean
+  maxLength?: number
 }) {
   const control = (
     <Field.Control
@@ -95,6 +97,7 @@ export function TextField({
       placeholder={placeholder}
       inputMode={inputMode}
       autoComplete={autoComplete}
+      maxLength={maxLength}
       autoCapitalize={technical ? 'none' : undefined}
       spellCheck={technical ? false : undefined}
       onValueChange={onValueChange}

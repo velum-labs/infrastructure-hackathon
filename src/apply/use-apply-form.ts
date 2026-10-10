@@ -4,6 +4,7 @@ import type { FieldKey, Member, TeamSize } from './model'
 export type ApplyValues = {
   size: TeamSize | null
   members: Member[]
+  ref: string
 }
 
 export function useApplyForm(initial: ApplyValues) {
@@ -11,6 +12,7 @@ export function useApplyForm(initial: ApplyValues) {
     defaultValues: {
       size: initial.size,
       members: initial.members,
+      ref: initial.ref,
     },
   })
 }

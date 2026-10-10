@@ -25,6 +25,7 @@ export type ApplyMessages = {
   }
   done: { title: string; body: string; sentTo: string; home: string }
   fields: {
+    ref: { label: string; hint: string; placeholder: string }
     name: { label: string }
     gender: { label: string; placeholder: string; options: Record<Gender, string> }
     github: { label: string; prefix: string; placeholder: string }
@@ -77,6 +78,11 @@ export const applyMessages: Record<Locale, ApplyMessages> = {
       home: 'Back to home',
     },
     fields: {
+      ref: {
+        label: 'Referral code',
+        hint: 'Where did you hear about us? Enter a code or organization name.',
+        placeholder: 'e.g. UC or Alianza Emprende',
+      },
       name: { label: 'Name or nickname' },
       gender: {
         label: 'Gender',
@@ -177,6 +183,11 @@ export const applyMessages: Record<Locale, ApplyMessages> = {
       home: 'Volver al inicio',
     },
     fields: {
+      ref: {
+        label: 'Código de referido',
+        hint: '¿Dónde te enteraste del evento? Escribe un código o el nombre de una organización.',
+        placeholder: 'Ej. UC o Alianza Emprende',
+      },
       name: { label: 'Nombre o apodo' },
       gender: {
         label: 'Género',

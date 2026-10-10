@@ -1,6 +1,6 @@
 import { APPLY } from '../i18n/locale'
 
-const MAX_REF_LENGTH = 120
+export const MAX_REF_LENGTH = 120
 
 /** A short, human-readable source label such as UC or Alianza Emprende. */
 export function normalizeRef(value: string | undefined): string | undefined {
@@ -19,4 +19,13 @@ export function applyHref(search: string): string {
 export function pathWithRef(path: string, value: string | undefined): string {
   const ref = normalizeRef(value)
   return ref ? `${path}?${new URLSearchParams({ ref })}` : path
+}
+
+/** Keep the edited field and URL aligned without dropping other query parameters. */
+export function urlWithRef(href: string, value: string | undefined): string {
+  const url = new URL(href)
+  const ref = normalizeRef(value)
+  if (ref) url.searchParams.set('ref', ref)
+  else url.searchParams.delete('ref')
+  return url.toString()
 }

@@ -17,7 +17,7 @@ export type Draft = {
   size: TeamSize | null
   members: Member[]
   step: Step
-  ref?: string
+  ref: string
 }
 
 const KEY = 'infra-hack:apply:v1'
@@ -27,6 +27,7 @@ export function emptyDraft(): Draft {
     size: null,
     members: Array.from({ length: TEAM_MAX }, emptyMember),
     step: 'size',
+    ref: '',
   }
 }
 
@@ -74,7 +75,7 @@ export function loadDraft(): Draft {
       size,
       members: Array.from({ length: TEAM_MAX }, (_, i) => readMember(list[i])),
       step: readStep(saved.step, size),
-      ref: normalizeRef(typeof saved.ref === 'string' ? saved.ref : undefined),
+      ref: normalizeRef(typeof saved.ref === 'string' ? saved.ref : undefined) ?? '',
     }
   } catch {
     return emptyDraft()
