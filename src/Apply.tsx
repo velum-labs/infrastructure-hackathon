@@ -14,6 +14,7 @@ import { Radio } from '@base-ui/react/radio'
 import { RadioGroup } from '@base-ui/react/radio-group'
 import { uiSound } from './ui-sound'
 import { MemberForm } from './apply/MemberForm'
+import { TextField } from './apply/fields'
 import {
   clearDraft,
   loadDraft,
@@ -30,7 +31,7 @@ import {
 } from './apply/model'
 import { checkTeam, schemaIssue, teamSizeSchema } from './apply/schema'
 import { submitTeam } from './apply/submit'
-import { pathWithRef, refFromSearch } from './apply/ref'
+import { MAX_REF_LENGTH, normalizeRef, pathWithRef, refFromSearch, urlWithRef } from './apply/ref'
 import { memberAt, memberPath, shownError, useApplyForm } from './apply/use-apply-form'
 import { applyMessages } from './i18n/apply'
 import { APPLY_META } from './i18n/meta'
@@ -102,11 +103,15 @@ export default function Apply() {
 
   const [initial] = useState(() => {
     const draft = loadDraft()
-    return { ...draft, ref: refFromSearch(window.location.search) ?? draft.ref }
+    const search = window.location.search
+    return {
+      ...draft,
+      ref: new URLSearchParams(search).has('ref') ? (refFromSearch(search) ?? '') : draft.ref,
+    }
   })
   const form = useApplyForm(initial)
   const values = useStore(form.store, (state) => state.values)
-  const { size, members } = values
+  const { size, members, ref } = values
 
   const [step, setStep] = useState<Step>(initial.step)
   const [status, setStatus] = useState<'idle' | 'sending' | 'failed'>('idle')
@@ -123,7 +128,7 @@ export default function Apply() {
 
   const done = sentTo !== null
   const stepKey = done ? 'done' : String(step)
-  const homeUrl = pathWithRef(HOME, initial.ref)
+  const homeUrl = pathWithRef(HOME, ref)
 
   useLayoutEffect(() => {
     document.documentElement.lang = htmlLang(locale)
@@ -142,8 +147,14 @@ export default function Apply() {
 
   useEffect(() => {
     if (!keepDraft.current) return
-    saveDraft({ size, members, step, ref: initial.ref })
-  }, [size, members, step, initial.ref])
+    saveDraft({ size, members, step, ref })
+  }, [size, members, step, ref])
+
+  useEffect(() => {
+    const current = window.location.href
+    const next = urlWithRef(current, ref)
+    if (next !== current) window.history.replaceState(window.history.state, '', next)
+  }, [ref])
 
   // Pin the title where it already sits, so scrolling the page doesn't drag it up.
   useLayoutEffect(() => {
@@ -238,7 +249,7 @@ export default function Apply() {
     const cleaned = checked.map((item) => item.member)
     setStatus('sending')
     try {
-      await submitTeam({ members: cleaned, ref: initial.ref })
+      await submitTeam({ members: cleaned, ref: normalizeRef(ref) })
       keepDraft.current = false
       clearDraft()
       setStatus('idle')
@@ -425,6 +436,30 @@ export default function Apply() {
           void submitMember(index)
         }}
       >
+        {index === 0 ? (
+          <div className="mb-16">
+            <form.Field name="ref">
+              {(field) => (
+                <TextField
+                  id="ref"
+                  name={field.name}
+                  label={t.fields.ref.label}
+                  optional={t.optional}
+                  hint={t.fields.ref.hint}
+                  placeholder={t.fields.ref.placeholder}
+                  maxLength={MAX_REF_LENGTH}
+                  value={field.state.value}
+                  onValueChange={field.handleChange}
+                  onBlur={() => {
+                    const cleaned = normalizeRef(field.state.value) ?? ''
+                    if (cleaned !== field.state.value) field.handleChange(cleaned)
+                    field.handleBlur()
+                  }}
+                />
+              )}
+            </form.Field>
+          </div>
+        ) : null}
         <MemberForm form={form} index={index} t={t} />
         <Nav
           back={() => setStep(index === 0 ? 'size' : index - 1)}
