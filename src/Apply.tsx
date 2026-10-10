@@ -30,6 +30,7 @@ import {
 } from './apply/model'
 import { checkTeam, schemaIssue, teamSizeSchema } from './apply/schema'
 import { submitTeam } from './apply/submit'
+import { pathWithRef, refFromSearch } from './apply/ref'
 import { memberAt, memberPath, shownError, useApplyForm } from './apply/use-apply-form'
 import { applyMessages } from './i18n/apply'
 import { APPLY_META } from './i18n/meta'
@@ -99,7 +100,10 @@ export default function Apply() {
   const [locale] = useLocale()
   const t = applyMessages[locale]
 
-  const [initial] = useState(loadDraft)
+  const [initial] = useState(() => {
+    const draft = loadDraft()
+    return { ...draft, ref: refFromSearch(window.location.search) ?? draft.ref }
+  })
   const form = useApplyForm(initial)
   const values = useStore(form.store, (state) => state.values)
   const { size, members } = values
@@ -119,6 +123,7 @@ export default function Apply() {
 
   const done = sentTo !== null
   const stepKey = done ? 'done' : String(step)
+  const homeUrl = pathWithRef(HOME, initial.ref)
 
   useLayoutEffect(() => {
     document.documentElement.lang = htmlLang(locale)
@@ -137,8 +142,8 @@ export default function Apply() {
 
   useEffect(() => {
     if (!keepDraft.current) return
-    saveDraft({ size, members, step })
-  }, [size, members, step])
+    saveDraft({ size, members, step, ref: initial.ref })
+  }, [size, members, step, initial.ref])
 
   // Pin the title where it already sits, so scrolling the page doesn't drag it up.
   useLayoutEffect(() => {
@@ -233,7 +238,7 @@ export default function Apply() {
     const cleaned = checked.map((item) => item.member)
     setStatus('sending')
     try {
-      await submitTeam({ members: cleaned })
+      await submitTeam({ members: cleaned, ref: initial.ref })
       keepDraft.current = false
       clearDraft()
       setStatus('idle')
@@ -265,7 +270,7 @@ export default function Apply() {
           ))}
         </ul>
         <div className="mt-12">
-          <a href={HOME} {...uiSound} className={PRIMARY}>
+          <a href={homeUrl} {...uiSound} className={PRIMARY}>
             {t.done.home}
           </a>
         </div>
@@ -443,7 +448,7 @@ export default function Apply() {
         className="sticky top-0 z-50 bg-[#f4f2ee] px-4 pt-4 pb-4 md:px-6"
       >
         <div className="flex items-baseline justify-between gap-4">
-          <a href={HOME} className={`${LINK} text-base leading-7`}>
+          <a href={homeUrl} className={`${LINK} text-base leading-7`}>
             {t.home}
           </a>
           <p className="text-base leading-7 text-[#5a5956] tabular-nums">

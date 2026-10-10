@@ -10,6 +10,7 @@ import {
 } from '../src/apply/model'
 import { checkTeam } from '../src/apply/schema'
 import { memberValidator } from './schema'
+import { normalizeRef } from '../src/apply/ref'
 import { mutation } from './_generated/server'
 import { internal } from './_generated/api'
 
@@ -46,9 +47,9 @@ function stored(member: Member) {
 }
 
 export const submit = mutation({
-  args: { members: v.array(memberValidator) },
+  args: { members: v.array(memberValidator), ref: v.optional(v.string()) },
   returns: v.null(),
-  handler: async (ctx, { members }) => {
+  handler: async (ctx, { members, ref }) => {
     if (members.length < TEAM_MIN || members.length > TEAM_MAX) {
       throw new ConvexError('Team must be 2 to 4 people')
     }
@@ -76,9 +77,11 @@ export const submit = mutation({
       }
     }
 
+    const sourceRef = normalizeRef(ref)
     const applicationId = await ctx.db.insert('applications', {
       submittedAt: Date.now(),
       size: ready.length,
+      ...(sourceRef ? { ref: sourceRef } : {}),
     })
 
     for (const person of ready) {

@@ -6,9 +6,10 @@ import { uiSound } from './ui-sound'
 import { AsciiField } from './v2/AsciiField'
 import { homeMessages, type OrgId } from './i18n/messages'
 import { HOME_META } from './i18n/meta'
-import { APPLY, SPONSOR, htmlLang, otherLocale } from './i18n/locale'
+import { SPONSOR, htmlLang, otherLocale } from './i18n/locale'
 import { useLocale } from './i18n/use-locale'
 import { VENUE_MAP } from './venue'
+import { applyHref } from './apply/ref'
 
 /** Mixkit 40938, silhouette of hands. Free to use. Center-cropped square. */
 const HAND = {
@@ -106,6 +107,7 @@ export default function Home() {
   const [locale, setLocale] = useLocale()
   const t = homeMessages[locale]
   const next = otherLocale(locale)
+  const applicationUrl = applyHref(window.location.search)
 
   useLayoutEffect(() => {
     document.documentElement.lang = htmlLang(locale)
@@ -170,7 +172,7 @@ export default function Home() {
         </div>
 
         <Door
-          href={APPLY}
+          href={applicationUrl}
           action={t.register}
           label={t.participants}
           theme="brand"
@@ -189,7 +191,7 @@ export default function Home() {
         className={`sticky top-0 z-40 border-b ${RULE}`}
       >
         <a
-          href={APPLY}
+          href={applicationUrl}
           {...uiSound}
           className="group block bg-[#f4f2ee] py-3 text-[#181818] no-underline outline-none transition-colors duration-75 ease-linear hover:bg-brand hover:text-[#f4f2ee] focus-visible:bg-brand focus-visible:text-[#f4f2ee] focus-visible:outline-2 focus-visible:outline-[#181818] focus-visible:-outline-offset-2 md:py-3.5"
         >

@@ -8,6 +8,7 @@ import {
   type Member,
   type TeamSize,
 } from './model'
+import { normalizeRef } from './ref'
 
 /** `'size'`, a member index, or `'review'`. The done screen is never saved. */
 export type Step = 'size' | 'review' | number
@@ -16,6 +17,7 @@ export type Draft = {
   size: TeamSize | null
   members: Member[]
   step: Step
+  ref?: string
 }
 
 const KEY = 'infra-hack:apply:v1'
@@ -72,6 +74,7 @@ export function loadDraft(): Draft {
       size,
       members: Array.from({ length: TEAM_MAX }, (_, i) => readMember(list[i])),
       step: readStep(saved.step, size),
+      ref: normalizeRef(typeof saved.ref === 'string' ? saved.ref : undefined),
     }
   } catch {
     return emptyDraft()

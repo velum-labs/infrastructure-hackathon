@@ -2,7 +2,7 @@ import { ConvexHttpClient } from 'convex/browser'
 import { anyApi } from 'convex/server'
 import type { Member } from './model'
 
-export type Team = { members: Member[] }
+export type Team = { members: Member[]; ref?: string }
 
 /** Save the team in Convex, or keep the form on its retry step. */
 export async function submitTeam(team: Team): Promise<void> {
@@ -11,5 +11,8 @@ export async function submitTeam(team: Team): Promise<void> {
     throw new Error('VITE_CONVEX_URL is required to save submissions')
   }
   const convex = new ConvexHttpClient(url)
-  await convex.mutation(anyApi.applications.submit, { members: team.members })
+  await convex.mutation(anyApi.applications.submit, {
+    members: team.members,
+    ...(team.ref ? { ref: team.ref } : {}),
+  })
 }
